@@ -45,6 +45,22 @@ class Module(object):
 
         return self.client.get(path, data_format=data_format)
 
+    def part_ids(self, module_ids, data_format=DF.JSON):
+        """
+        Get part IDs for multiple modules.
+
+        Arguments:
+            module_ids (list[str]): IDs of modules for which data should be returned
+            data_format (str): Format in which to return data (default is JSON)
+        """
+        if not module_ids:
+            raise InvalidRequestError('At least one module ID must be supplied.')
+
+        module_ids = ','.join(module_ids)
+        path = 'problems/part_ids/?problem_ids={}'.format(module_ids)
+
+        return self.client.get(path, data_format=data_format)
+
     def grade_distribution(self, data_format=DF.JSON):
         """
         Get grade distribution data for a module.
